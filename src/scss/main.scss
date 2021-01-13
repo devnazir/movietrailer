@@ -1,0 +1,23 @@
+@use './modules/fonts';
+@use './modules/animation';
+@use './modules/header';
+@use './modules/genres';
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #1A202C;
+    overflow-x: hidden;
+    .container {
+        max-width: 1440px;
+        padding: 2rem 3rem;
+        margin: auto;
+
+        section {
+            margin-top: 5rem;
+        }
+    }
+}
