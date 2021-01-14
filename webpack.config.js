@@ -50,7 +50,7 @@ module.exports = {
                     loader: 'file-loader',
                     options: {
                         outputPath: '../fonts/',
-                        publicPath: 'dist/fonts',
+                        publicPath: '../fonts',
                         name: '[name]-[hash:8].[ext]'
                     }
                 }
