@@ -2,9 +2,9 @@ header {
     color: white;
     display: flex;
     flex-direction: column;
-    height: 450px;
+    height: 500px;
     justify-content: space-between;
-    font-family: "Poppins";
+    font-family: "Poppins", sans-serif;
     position: relative;
 
     nav {
@@ -13,6 +13,9 @@ header {
         align-items: center;
         h1 {
             font-size: 1.8em;
+            span {
+                color: rgb(42, 190, 235);
+            }
         }
 
         ul {
@@ -50,7 +53,7 @@ header {
     }
 
     .popular-movies {
-        font-family: "SFPro-Text";
+        font-family: "SFPro-Text", sans-serif;
         h2 {
             position: relative;
             width: max-content;
@@ -69,10 +72,11 @@ header {
         .content-popular {
             margin-top: 2rem;
             display: flex;
-            overflow-x: hidden;
+            overflow-x: scroll;
             .card {
                 width: 400px;
                 margin-right: 2rem;
+                z-index: -1;
 
                 .thumbnail {
                     width: inherit;
@@ -106,6 +110,7 @@ header {
                         bottom: 1em;
                         right: 1em;
                         z-index: 2;
+                        transform: scale(.7);
                         img {
                             width: auto;
                             height: auto;
@@ -128,8 +133,21 @@ header {
                 }
 
             }
+            &::-webkit-scrollbar {
+                width: 0px;
+            }
         }
-
+        .next {
+            width: 60px;
+            height: 60px;
+            background-image: url('../images/next.png');
+            position: absolute;
+            top: 250px;
+            right: 1rem;
+            transform: scale(.9);
+            opacity: 0;
+            transition: .5s;
+        }
     }
 
     .loading {

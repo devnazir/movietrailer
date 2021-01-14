@@ -2,9 +2,9 @@ section#genre {
     font-family: "SFPro-Text";
     color: white;
     .genre-nav {
-        // overflow-x: scroll;
         width: 100%;
         ul {
+            overflow: scroll;
             width: 700px;
             margin-top: 1rem;
             display: flex;
@@ -12,6 +12,7 @@ section#genre {
             align-items: center;
             li {
                 list-style: none;
+                padding: 0.5rem 2rem;
                 a {
                     text-decoration: none;
                     color: white;
@@ -23,15 +24,21 @@ section#genre {
                 border-radius: 60px;
                 padding: 0.5rem 2rem;
             }
+
+            &::-webkit-scrollbar {
+                width: 0px;
+            }
         }
     }
 
     .movies {
         margin-top: 2rem;
         display: flex;
+        overflow-x: scroll;
         .card {
             width: 150px;
             margin-right: 2rem;
+            z-index: -1;
             .thumbnail {
                 width: inherit;
                 height: 200px;
@@ -56,6 +63,10 @@ section#genre {
                     font-size: .7em;
                 }
             }
+        }
+
+        &::-webkit-scrollbar {
+            width: 0px;
         }
     }
 }

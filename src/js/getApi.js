@@ -5,7 +5,7 @@ function getMovies(path, query) {
     const checkQuery = query ?? '';
     let url = `${api}${path}?api_key=${apiKey}&query=${checkQuery}`;
 
-    if(checkQuery === "" && url.includes("&query=")) {
+    if (checkQuery === "" && url.includes("&query=")) {
         return fetch(url.replace("&query=", ""))
     }
 

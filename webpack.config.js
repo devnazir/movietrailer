@@ -51,6 +51,7 @@ module.exports = {
                     options: {
                         outputPath: '../../fonts/',
                         publicPath: '/fonts',
+                        name: '[name]-[hash:8].[ext]'
                     }
                 }
             }
