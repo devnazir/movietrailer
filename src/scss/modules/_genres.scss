@@ -1,10 +1,10 @@
 section#genre {
-    font-family: "SFPro-Text";
+    font-family: "SFPro-Text", "Open-sans" ,sans-serif;
     color: white;
     .genre-nav {
         width: 100%;
         ul {
-            overflow: scroll;
+            overflow: hidden;
             width: 700px;
             margin-top: 1rem;
             display: flex;
@@ -13,10 +13,8 @@ section#genre {
             li {
                 list-style: none;
                 padding: 0.5rem 2rem;
-                a {
-                    text-decoration: none;
-                    color: white;
-                }
+                color: white;
+                cursor: pointer;
             }
 
             .active {
@@ -34,11 +32,10 @@ section#genre {
     .movies {
         margin-top: 2rem;
         display: flex;
-        overflow-x: scroll;
+        overflow-x: hidden;
         .card {
             width: 150px;
             margin-right: 2rem;
-            z-index: -1;
             .thumbnail {
                 width: inherit;
                 height: 200px;
@@ -47,7 +44,7 @@ section#genre {
                     height: 200px;
                 }
             }
-
+            
             .card-title {
                 margin-top: 1rem;
                 display: flex;

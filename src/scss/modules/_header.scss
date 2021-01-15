@@ -72,11 +72,10 @@ header {
         .content-popular {
             margin-top: 2rem;
             display: flex;
-            overflow-x: scroll;
+            overflow-x: hidden;
             .card {
                 width: 400px;
                 margin-right: 2rem;
-                z-index: -1;
 
                 .thumbnail {
                     width: inherit;
@@ -142,7 +141,7 @@ header {
             height: 60px;
             background-image: url('../images/next.png');
             position: absolute;
-            top: 250px;
+            bottom: 0px;
             right: 1rem;
             transform: scale(.9);
             opacity: 0;

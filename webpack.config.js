@@ -1,6 +1,7 @@
 const htmlPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const cssExternal = require("mini-css-extract-plugin");
+// const CompressionPlugin = require("compression-webpack-plugin");
 const path = require("path");
 
 module.exports = {
@@ -24,6 +25,7 @@ module.exports = {
             dangerouslyAllowCleanPatternsOutsideProject: true,
             cleanOnceBeforeBuildPatterns: [path.join(__dirname, 'dist/**/*')]
         }),
+        // new CompressionPlugin()
     ],
     module: {
         rules: [

@@ -14,6 +14,15 @@ function getMovies(path, query) {
 
 export { getMovies }
 
-// function getTrailer() {
-//     return fetch("https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=UCi8e0iOVk1fEOogdfu4YgfA&maxResults=1&q=Maze%20Runner&type=video&key=AIzaSyAcw7mlBn6gDe2wW6BsK2zCkIwu69JwDuc")
-// }
+function getTrailer(path, query) {
+    // let playVideo = `https://www.youtube.com/watch?v=`;
+    let api = `https://youtube.googleapis.com/youtube/v3/`
+    let apiKey = `AIzaSyAcw7mlBn6gDe2wW6BsK2zCkIwu69JwDuc`;
+    let channelId = `UCi8e0iOVk1fEOogdfu4YgfA`;
+
+    let url = `${api}${path}?part=snippet&channelId=${channelId}&maxResults=1&q=${query}&type=video&key=${apiKey}`;
+
+    return fetch(url);
+}
+
+// console.log(getTrailer())

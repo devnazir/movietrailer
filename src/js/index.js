@@ -140,23 +140,24 @@ function mouseDown(e) {
 
 // ketika cursor mouse digeser
 function mouseMove(e) {
-    e.preventDefault()
+    e.preventDefault();
     if (!onMouseDown) return;
     let x = e.clientX;
     let scroll = (x - startX);
 
-    if (e.target.className === "movies") {
-        genreContainer.scrollLeft = scrollLeft - (scroll);
-        return;
-    }
-
-    if (popularMovies.scrollLeft == (popularMovies.scrollWidth - popularMovies.clientWidth)) {
-        next.style.cssText = 'opacity: 1';
-    } else {
-        next.style.cssText = 'opacity: 0';
-    }
-
-    popularMovies.scrollLeft = scrollLeft - (scroll);
+    e.path.some(element => {
+        if (element.localName == "header") {
+            popularMovies.scrollLeft = scrollLeft - (scroll);
+            if (popularMovies.scrollLeft == (popularMovies.scrollWidth - popularMovies.clientWidth)) {
+                next.style.cssText = 'opacity: 1';
+            } else {
+                next.style.cssText = 'opacity: 0';
+            }
+        }
+        else if (element.className == "movies") {
+            genreContainer.scrollLeft = scrollLeft - (scroll);
+        }
+    });
 }
 
 // ketika klik mouse di lepas
@@ -169,7 +170,7 @@ function loadListMoviePopular(movie) {
     return `<div class="card">
                 <div class="thumbnail">
                     <img loading="lazy" src="https://image.tmdb.org/t/p/original/${movie.backdrop_path}" alt="Thumbnail" >
-                    <button>
+                    <button data-btn='${movie.title}'>
                         <img loading="lazy" src="${require('../images/btn-play.png')}" alt="Trailer">
                     </button>
                 </div>
