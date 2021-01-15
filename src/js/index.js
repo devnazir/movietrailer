@@ -13,23 +13,27 @@ const search = document.querySelector(".input-search");
 const next = document.querySelector(".next");
 
 // Menampilkan Movie yang populer bulanan
-window.addEventListener("load", async () => {
+async function firstLoad() {
     try {
         const popularWeek = await getMovies("trending/movie/week");
         const popularDay = await getMovies("trending/movie/day");
-        getMoviesPopular(popularWeek, loading);
+        loading.classList.add("spin");
+        getMoviesPopular(popularWeek);
         getMoviesByGenre(popularDay, "all")
     }
     catch (e) {
         console.log(e)
     }
-});
+}
+firstLoad();
 
 // Ambil data movie populer
-async function getMoviesPopular(data, loading) {
+async function getMoviesPopular(data) {
     try {
         const response = await data.json();
-        showMovies(response, loading)
+        loading.classList.remove("spin");
+        showMovies(response);
+        loading.parentElement.style.display = 'none';
     }
 
     catch (e) {
@@ -38,8 +42,8 @@ async function getMoviesPopular(data, loading) {
 }
 
 // Tampilkan data movie
-function showMovies(response, loading) {
-    const results = response?.results;
+function showMovies(response) {
+    const results = response.results;
     let popular = "";
 
     results.forEach(movie => {
@@ -47,7 +51,10 @@ function showMovies(response, loading) {
     });
 
     popularMovies.innerHTML = popular;
-    loading.parentElement.style.display = 'none';
+    popularMovies.addEventListener("mousedown", mouseDown);
+    popularMovies.addEventListener("mousemove", mouseMove);
+    popularMovies.addEventListener("mouseup", mouseUp);
+    popularMovies.addEventListener("mouseleave", mouseUp);
 }
 
 // Fungsi mengecek setiap genre id dan menambah kelas active ketika di click
@@ -102,6 +109,10 @@ function showMoviesByGenre(results, genreId) {
     });
 
     genreContainer.innerHTML = genres;
+    genreContainer.addEventListener("mousedown", mouseDown);
+    genreContainer.addEventListener("mousemove", mouseMove);
+    genreContainer.addEventListener("mouseup", mouseUp);
+    genreContainer.addEventListener("mouseleave", mouseUp);
 }
 
 // Fungsi untuk mencari film
@@ -139,7 +150,7 @@ function mouseMove(e) {
         return;
     }
 
-    if(popularMovies.scrollLeft == (popularMovies.scrollWidth - popularMovies.clientWidth)) {
+    if (popularMovies.scrollLeft == (popularMovies.scrollWidth - popularMovies.clientWidth)) {
         next.style.cssText = 'opacity: 1';
     } else {
         next.style.cssText = 'opacity: 0';
@@ -153,23 +164,13 @@ function mouseUp() {
     onMouseDown = false;
 }
 
-popularMovies.addEventListener("mousedown", mouseDown);
-popularMovies.addEventListener("mousemove", mouseMove);
-popularMovies.addEventListener("mouseup", mouseUp);
-popularMovies.addEventListener("mouseleave", mouseUp);
-
-genreContainer.addEventListener("mousedown", mouseDown);
-genreContainer.addEventListener("mousemove", mouseMove);
-genreContainer.addEventListener("mouseup", mouseUp);
-genreContainer.addEventListener("mouseleave", mouseUp);
-
 // Template movie popular
 function loadListMoviePopular(movie) {
     return `<div class="card">
                 <div class="thumbnail">
                     <img loading="lazy" src="https://image.tmdb.org/t/p/original/${movie.backdrop_path}" alt="Thumbnail" >
                     <button>
-                        <img src="${require('../images/btn-play.png')}" alt="Trailer">
+                        <img loading="lazy" src="${require('../images/btn-play.png')}" alt="Trailer">
                     </button>
                 </div>
                 <div class="card-title">
@@ -186,7 +187,7 @@ function loadListMoviePopular(movie) {
 function loadMoviesByGenre(movie) {
     return `<div class="card">
                 <div class="thumbnail">
-                    <img src="https://image.tmdb.org/t/p/original/${movie.poster_path}" alt="Thumbnail">
+                    <img loading="lazy" src="https://image.tmdb.org/t/p/original/${movie.poster_path}" alt="Thumbnail">
                 </div>
                 <div class="card-title">
                     <h3>${movie.title}</h3>
