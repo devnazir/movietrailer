@@ -188,24 +188,24 @@ function mouseMove(e) {
 
 // ketika klik mouse di lepas
 function mouseUp(e) {
-    if (!readyMouseUp) {
-        if (scroll > 0) {
-            popularMovies.scrollTo({
-                top: 0,
-                left: popularMovies.scrollLeft,
-                behavior: 'smooth'
-            });
-        } else {
-            popularMovies.scrollTo({
-                top: 0,
-                left: e.target.offsetLeft - 432,
-                behavior: 'smooth'
-            });
-            console.log(scroll)
-        }
-    }
+    // if (!readyMouseUp) {
+    //     if (scroll > 0) {
+    //         popularMovies.scrollTo({
+    //             top: 0,
+    //             left: popularMovies.scrollLeft,
+    //             behavior: 'smooth'
+    //         });
+    //     } else {
+    //         popularMovies.scrollTo({
+    //             top: 0,
+    //             left: e.target.offsetLeft - 432,
+    //             behavior: 'smooth'
+    //         });
+    //         console.log(scroll)
+    //     }
+    // }
 
-    readyMouseUp = true;
+    // readyMouseUp = true;
     onMouseDown = false;
 }
 
