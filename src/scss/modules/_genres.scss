@@ -13,8 +13,11 @@ section#genre {
             li {
                 list-style: none;
                 padding: 0.5rem 2rem;
-                color: white;
-                cursor: pointer;
+                a {
+                    color: white;
+                    text-decoration: none;
+                    cursor: pointer;
+                }
             }
 
             .active {

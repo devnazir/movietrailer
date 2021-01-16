@@ -9,23 +9,32 @@ const loading = document.querySelector(".loading .circle");
 const popularMovies = document.querySelector(".content-popular");
 const genreContainer = document.querySelector("section#genre .movies");
 const genreNav = document.querySelectorAll(".genre-nav li");
+const linkGenre = document.querySelectorAll(".genre-nav a");
 const search = document.querySelector(".input-search");
 const next = document.querySelector(".next");
 
 // Menampilkan Movie yang populer bulanan
-async function firstLoad() {
+async function fecthMoviesPopular() {
     try {
         const popularWeek = await getMovies("trending/movie/week");
-        const popularDay = await getMovies("trending/movie/day");
         loading.classList.add("spin");
-        getMoviesPopular(popularWeek);
-        getMoviesByGenre(popularDay, "all")
+        getMoviesPopular(popularWeek)
     }
     catch (e) {
         console.log(e)
     }
 }
-firstLoad();
+
+// Menampilkan Movie yang populer harian
+async function fetchMoviesPopularDay() {
+    try {
+        const popularDay = await getMovies("trending/movie/day");
+        getMoviesByGenre(popularDay, "all") 
+    }
+    catch (e) {
+        console.log(e)
+    }
+}
 
 // Ambil data movie populer
 async function getMoviesPopular(data) {
@@ -65,6 +74,7 @@ function browseByGenre() {
     checkGenreId(genreId);
 }
 genreNav.forEach(li => li.addEventListener("click", browseByGenre));
+linkGenre.forEach(a => a.addEventListener("click", (e) => e.preventDefault()));
 
 // cek apakah link sebelumnya ada kelas active
 function checkActiveClass() {
@@ -169,7 +179,7 @@ function mouseUp() {
 function loadListMoviePopular(movie) {
     return `<div class="card">
                 <div class="thumbnail">
-                    <img loading="lazy" src="https://image.tmdb.org/t/p/original/${movie.backdrop_path}" alt="Thumbnail" >
+                    <img loading="lazy" src="https://image.tmdb.org/t/p/w400${movie.backdrop_path}" alt="Thumbnail" >
                     <button data-btn='${movie.title}'>
                         <img loading="lazy" src="${require('../images/btn-play.png')}" alt="Trailer">
                     </button>
@@ -188,7 +198,7 @@ function loadListMoviePopular(movie) {
 function loadMoviesByGenre(movie) {
     return `<div class="card">
                 <div class="thumbnail">
-                    <img loading="lazy" src="https://image.tmdb.org/t/p/original/${movie.poster_path}" alt="Thumbnail">
+                    <img loading="lazy" src="https://image.tmdb.org/t/p/w200${movie.poster_path}" alt="Thumbnail">
                 </div>
                 <div class="card-title">
                     <h3>${movie.title}</h3>
@@ -197,3 +207,6 @@ function loadMoviesByGenre(movie) {
                 </div>
             </div>`
 }
+
+fecthMoviesPopular();
+fetchMoviesPopularDay();

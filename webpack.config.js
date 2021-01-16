@@ -34,7 +34,7 @@ module.exports = {
                 use: [cssExternal.loader, 'css-loader', 'sass-loader']
             },
             {
-                test: /\.(png|jpeg|jpg)$/i,
+                test: /\.(png|jpeg|jpg|svg)$/i,
                 use: {
                     loader: 'url-loader',
                     options: {
