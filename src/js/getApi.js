@@ -12,17 +12,15 @@ function getMovies(path, query) {
     return fetch(url);
 }
 
-export { getMovies }
-
 function getTrailer(path, query) {
-    // let playVideo = `https://www.youtube.com/watch?v=`;
     let api = `https://youtube.googleapis.com/youtube/v3/`
-    let apiKey = `AIzaSyAcw7mlBn6gDe2wW6BsK2zCkIwu69JwDuc`;
+    let apiKey = `AIzaSyDv8wAkRENMnAXnAqx4QsUs8ufDokXTXt0`;
     let channelId = `UCi8e0iOVk1fEOogdfu4YgfA`;
 
     let url = `${api}${path}?part=snippet&channelId=${channelId}&maxResults=1&q=${query}&type=video&key=${apiKey}`;
 
-    return fetch(url);
+    return fetch(url, {cache: "force-cache"});
 }
 
-// console.log(getTrailer())
+
+export { getMovies, getTrailer }

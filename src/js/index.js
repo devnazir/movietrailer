@@ -4,6 +4,8 @@ import { getMovies } from './getApi';
 let scrollLeft;
 let onMouseDown = false;
 let startX = 0;
+let scroll = 0;
+let readyMouseUp = true;
 
 const loading = document.querySelector(".loading .circle");
 const popularMovies = document.querySelector(".content-popular");
@@ -29,7 +31,7 @@ async function fecthMoviesPopular() {
 async function fetchMoviesPopularDay() {
     try {
         const popularDay = await getMovies("trending/movie/day");
-        getMoviesByGenre(popularDay, "all") 
+        getMoviesByGenre(popularDay, "all")
     }
     catch (e) {
         console.log(e)
@@ -140,9 +142,23 @@ async function searchMovies(event) {
 }
 search.addEventListener("keydown", searchMovies);
 
+
+function btnClick(e) {
+    e.path.some(check => {
+        if (check.localName === "button") {
+            import(/* webpackChunkName: 'trailer' */ './trailer')
+                .then(res => {
+                    res.trailer(e);
+                });
+        }
+    });
+}
+document.addEventListener("click", btnClick);
+
 // Ketika mouse diklik atau ditekan
 function mouseDown(e) {
     e.preventDefault();
+    readyMouseUp = false;
     onMouseDown = true;
     startX = e.clientX;
     scrollLeft = this.scrollLeft;
@@ -153,7 +169,7 @@ function mouseMove(e) {
     e.preventDefault();
     if (!onMouseDown) return;
     let x = e.clientX;
-    let scroll = (x - startX);
+    scroll = (x - startX);
 
     e.path.some(element => {
         if (element.localName == "header") {
@@ -171,7 +187,25 @@ function mouseMove(e) {
 }
 
 // ketika klik mouse di lepas
-function mouseUp() {
+function mouseUp(e) {
+    if (!readyMouseUp) {
+        if (scroll > 0) {
+            popularMovies.scrollTo({
+                top: 0,
+                left: popularMovies.scrollLeft,
+                behavior: 'smooth'
+            });
+        } else {
+            popularMovies.scrollTo({
+                top: 0,
+                left: e.target.offsetLeft - 432,
+                behavior: 'smooth'
+            });
+            console.log(scroll)
+        }
+    }
+
+    readyMouseUp = true;
     onMouseDown = false;
 }
 
@@ -181,7 +215,7 @@ function loadListMoviePopular(movie) {
                 <div class="thumbnail">
                     <img loading="lazy" src="https://image.tmdb.org/t/p/w400${movie.backdrop_path}" alt="Thumbnail" >
                     <button data-btn='${movie.title}'>
-                        <img loading="lazy" src="${require('../images/btn-play.png')}" alt="Trailer">
+                        <img loading="lazy" src="${require('../images/btn-play.png')}" alt="Trailer" data-btn='${movie.title}'>
                     </button>
                 </div>
                 <div class="card-title">
@@ -191,7 +225,7 @@ function loadListMoviePopular(movie) {
                 <div class="rating">
                     <span>&#11088;${movie.vote_average}</span>
                 </div>
-            </div>`
+            </div>`;
 }
 
 // Template movie sesuai genre
@@ -205,7 +239,7 @@ function loadMoviesByGenre(movie) {
                     <span>${movie.release_date}</span>
                     <span>&#11088;${movie.vote_average}</span>
                 </div>
-            </div>`
+            </div>`;
 }
 
 fecthMoviesPopular();

@@ -9,42 +9,98 @@
 }
 
 body {
-    background-color: #1A202C;
+    background-color: #1a202c;
     overflow-x: hidden;
     .container {
         // max-width: 1440px;
         padding: 2rem 3rem;
         margin: auto;
 
-        section, footer {
+        section,
+        footer {
             margin-top: 5rem;
+        }
+
+        footer {
+            font-family: "Poppins", sans-serif;
+            width: 100%;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            // align-items: center;
+            justify-content: space-evenly;
+            color: white;
+            p {
+                font-weight: 500;
+                font-size: 0.9em;
+            }
+
+            a {
+                color: rgb(42, 190, 235);
+                text-decoration: none;
+            }
+
+            span {
+                color: rgb(42, 190, 235);
+            }
+            img {
+                width: 300px;
+            }
         }
     }
 
-    footer {
-        font-family: "Poppins", sans-serif;
-        width: 100%;
-        height: 100px;
+    .trailer-container {
+        background-color: rgba($color: #000000, $alpha: 0.8);
+        font-family: "SFPro-text";
         display: flex;
-        flex-direction: column;
-        // align-items: center;
-        justify-content: space-evenly;
-        color: white;
-        p {
-            font-weight: 500;
-            font-size: .9em;
+        justify-content: center;
+        position: fixed;
+        width: 100%;
+        height: 50vh;
+        top: 0;
+        opacity: 0;
+        z-index: -2;
+        transition: 0.25s;
+
+        .content {
+            width: 800px;
+            overflow-y: scroll;
+
+            &::-webkit-scrollbar {
+                width: 0px;
+            }
+            .trailer {
+                position: relative;
+                padding-bottom: 56.25%;
+                iframe {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+            .description {
+                margin-top: 1rem;
+                position: relative;
+                .btn-back {
+                    position: absolute;
+                    right: 0;
+                    background-color: white;
+                    padding: 0.5rem 1rem;
+                    border-radius: 8px;
+                    a {
+                        text-decoration: none;
+                        color: black;
+                    }
+                }
+            }
         }
 
-        a {
-            color: rgb(42, 190, 235);
-            text-decoration: none;
-        }
-
-        span {
-            color: rgb(42, 190, 235);
-        }
-        img {
-            width: 300px;
+        &.full-height {
+            height: 100vh;
+            opacity: 1;
+            z-index: 99;
         }
     }
 }

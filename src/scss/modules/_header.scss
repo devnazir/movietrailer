@@ -54,6 +54,7 @@ header {
 
     .popular-movies {
         font-family: "SFPro-Text", sans-serif;
+        overflow: hidden;
         h2 {
             position: relative;
             width: max-content;
@@ -72,7 +73,8 @@ header {
         .content-popular {
             margin-top: 2rem;
             display: flex;
-            overflow-x: hidden;
+            overflow-x: scroll;
+            transition: margin-left .2s;
             .card {
                 width: 400px;
                 margin-right: 2rem;
@@ -103,6 +105,7 @@ header {
                     button {
                         position: absolute;
                         background: none;
+                        border-radius: 50%;
                         border: none;
                         outline: none;
                         cursor: pointer;
@@ -133,7 +136,7 @@ header {
 
             }
             &::-webkit-scrollbar {
-                width: 0px;
+                // width: 0px;
             }
         }
         .next {
