@@ -1,26 +1,38 @@
-function getMovies(path, query) {
-    let api = `https://api.themoviedb.org/3/`;
-    let apiKey = `6fa39716df5c82d1be46c3d685c8c56c`;
+export class publicApi {
+    constructor(object) {
+        const { api, apiKey, path, query } = object;
 
-    const checkQuery = query ?? '';
-    let url = `${api}${path}?api_key=${apiKey}&query=${checkQuery}`;
-
-    if (checkQuery === "" && url.includes("&query=")) {
-        return fetch(url.replace("&query=", ""))
+        this.api = api;
+        this.apiKey = apiKey;
+        this.path = path;
+        this.query = query;
+        this.url = "";
     }
 
-    return fetch(url);
+    async movies() {
+        const query = this.query ?? '';
+        this.url = `${this.api}${this.path}?api_key=${this.apiKey}&query=${query}`;
+        return await fetch(this.url)
+    }
+
+    async trailer(channelId) {
+        this.url = `${this.api}${this.path}?part=snippet&channelId=${channelId}&maxResults=1&q=${this.query}&type=video&key=${this.apiKey}`
+        return await fetch(this.url)
+    }
+
 }
 
-function getTrailer(path, query) {
-    let api = `https://youtube.googleapis.com/youtube/v3/`
-    let apiKey = `AIzaSyDv8wAkRENMnAXnAqx4QsUs8ufDokXTXt0`;
-    let channelId = `UCi8e0iOVk1fEOogdfu4YgfA`;
+// Example
+// new publicApi({
+//     api: "https://api.themoviedb.org/3/",
+//     apiKey: "6fa39716df5c82d1be46c3d685c8c56c",
+//     path: "",
+//     query: "",
+// }).movies();
 
-    let url = `${api}${path}?part=snippet&channelId=${channelId}&maxResults=1&q=${query}&type=video&key=${apiKey}`;
-
-    return fetch(url);
-}
-
-
-export { getMovies, getTrailer }
+// new publicApi({
+//     api: "https://youtube.googleapis.com/youtube/v3/",
+//     apiKey: "AIzaSyDv8wAkRENMnAXnAqx4QsUs8ufDokXTXt0",
+//     path: "search",
+//     query: "avengers",
+// }).trailer("UCi8e0iOVk1fEOogdfu4YgfA");
