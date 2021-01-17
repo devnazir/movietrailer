@@ -1,26 +1,28 @@
-import { getTrailer } from './getApi';
+import { getTrailer, getMovies } from './getApi';
 const trailerContainer = document.querySelector(".trailer-container");
 
 export async function trailer(e) {
     const querySeacrh = e.target.dataset.btn;
-    await getTrailer("search", querySeacrh)
-        .then(res => {
-            if (!res.ok) {
-                console.log(res.statusText)
-            }
-            return res.json();
-        })
-        .then(res => {
-            loadTrailer(res);
-        });
+    try {
+        const dataTrailer = await getTrailer("search", querySeacrh)
+        searchTrailer(dataTrailer)
+    }
+    catch(err) {
+        console.log(err);
+    }
+}
+
+async function searchTrailer(res) {
+    const data = await res.json();
+    loadTrailer(data)
 }
 
 function loadTrailer(res) {
     const content = document.querySelector(".trailer-container .content");
     trailerContainer.classList.add("full-height");
+    console.log(res)
     const videoId = res.items[0].id.videoId;
     content.innerHTML = showTrailerMovies(videoId);
-
     const btnBack = content.querySelector(".btn-back");
     btnBack.addEventListener("click", () => {
         trailerContainer.classList.remove("full-height");

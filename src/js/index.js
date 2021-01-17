@@ -5,7 +5,6 @@ let scrollLeft;
 let onMouseDown = false;
 let startX = 0;
 let scroll = 0;
-let readyMouseUp = true;
 
 const loading = document.querySelector(".loading .circle");
 const popularMovies = document.querySelector(".content-popular");
@@ -158,7 +157,6 @@ document.addEventListener("click", btnClick);
 // Ketika mouse diklik atau ditekan
 function mouseDown(e) {
     e.preventDefault();
-    readyMouseUp = false;
     onMouseDown = true;
     startX = e.clientX;
     scrollLeft = this.scrollLeft;
@@ -187,25 +185,7 @@ function mouseMove(e) {
 }
 
 // ketika klik mouse di lepas
-function mouseUp(e) {
-    // if (!readyMouseUp) {
-    //     if (scroll > 0) {
-    //         popularMovies.scrollTo({
-    //             top: 0,
-    //             left: popularMovies.scrollLeft,
-    //             behavior: 'smooth'
-    //         });
-    //     } else {
-    //         popularMovies.scrollTo({
-    //             top: 0,
-    //             left: e.target.offsetLeft - 432,
-    //             behavior: 'smooth'
-    //         });
-    //         console.log(scroll)
-    //     }
-    // }
-
-    // readyMouseUp = true;
+function mouseUp() {
     onMouseDown = false;
 }
 

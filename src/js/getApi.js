@@ -19,7 +19,7 @@ function getTrailer(path, query) {
 
     let url = `${api}${path}?part=snippet&channelId=${channelId}&maxResults=1&q=${query}&type=video&key=${apiKey}`;
 
-    return fetch(url, {cache: "force-cache"});
+    return fetch(url);
 }
 
 

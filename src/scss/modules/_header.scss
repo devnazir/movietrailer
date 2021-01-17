@@ -54,7 +54,6 @@ header {
 
     .popular-movies {
         font-family: "SFPro-Text", sans-serif;
-        overflow: hidden;
         h2 {
             position: relative;
             width: max-content;
@@ -73,7 +72,7 @@ header {
         .content-popular {
             margin-top: 2rem;
             display: flex;
-            overflow-x: scroll;
+            overflow-x: hidden;
             transition: margin-left .2s;
             .card {
                 width: 400px;
