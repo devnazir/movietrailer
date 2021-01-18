@@ -1,44 +1,47 @@
-import { getTrailer, getMovies } from './getApi';
-const trailerContainer = document.querySelector(".trailer-container");
+import { publicApi as Api } from './getApi';
 
-export async function trailer(e) {
-    const querySeacrh = e.target.dataset.btn;
-    try {
-        const dataTrailer = await getTrailer("search", querySeacrh)
-        searchTrailer(dataTrailer)
+export class Trailer {
+    constructor() {
+        this.trailerContainer = document.querySelector(".trailer-container");
+        this.content = this.trailerContainer.querySelector(".trailer-container .content");
     }
-    catch(err) {
-        console.log(err);
+
+    async getTrailer(event) {
+        try {
+            const querySeacrh = event.target.dataset.btn;
+            const data = await new Api({
+                path: "search",
+                query: querySeacrh,
+            }).trailer('UCi8e0iOVk1fEOogdfu4YgfA');
+
+            this.showTrailerMovies(data);
+        }
+        catch (err) {
+            console.log(err);
+        }
     }
-}
 
-async function searchTrailer(res) {
-    const data = await res.json();
-    loadTrailer(data)
-}
+    showTrailerMovies(data) {
+        this.trailerContainer.classList.add("full-height");
+        const videoId = data.items[0].id.videoId;
+        this.content.innerHTML = this.templateTrailer(videoId);
 
-function loadTrailer(res) {
-    const content = document.querySelector(".trailer-container .content");
-    trailerContainer.classList.add("full-height");
-    console.log(res)
-    const videoId = res.items[0].id.videoId;
-    content.innerHTML = showTrailerMovies(videoId);
-    const btnBack = content.querySelector(".btn-back");
-    btnBack.addEventListener("click", () => {
-        trailerContainer.classList.remove("full-height");
-    });
-}
+        const btnBack = this.content.querySelector(".btn-back");
+        btnBack.addEventListener("click", () => {
+            this.trailerContainer.classList.remove("full-height");
+        });
+    }
 
-//template trailer 
-function showTrailerMovies(videoId) {
-    return `
-        <div class="trailer">
-            <iframe src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
-        </div>
-        <div class="description">
-            <div class="btn-back">
-                <a href="#">Back to Homepage</a>
+    templateTrailer(videoId) {
+        return `
+            <div class="trailer">
+                <iframe src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
             </div>
-        </div>
-    `;
+            <div class="description">
+                <div class="btn-back">
+                    <a href="#">Back to Homepage</a>
+                </div>
+            </div>
+        `;
+    }
 }

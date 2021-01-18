@@ -5,7 +5,7 @@ section#genre {
         width: 100%;
         ul {
             overflow: hidden;
-            width: 700px;
+            width: max-content;
             margin-top: 1rem;
             display: flex;
             justify-content: space-between;
@@ -27,7 +27,13 @@ section#genre {
             }
 
             &::-webkit-scrollbar {
-                width: 0px;
+                // width: 0px;
+            }
+
+            @media screen and (max-width:768px) {
+                & {
+                    width: 100%;
+                }
             }
         }
     }
