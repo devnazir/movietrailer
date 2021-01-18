@@ -9,6 +9,7 @@ header {
 
     nav {
         display: flex;
+        flex-wrap: wrap;
         justify-content: space-between;
         align-items: center;
         h1 {
@@ -33,6 +34,30 @@ header {
                 }
             }
         }
+        .icon-search {
+            display: none;
+        }
+
+        .hamburger {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            display: none;
+            cursor: pointer;
+            span {
+                height: 3px;
+                background-color: white;
+                border-radius: 2px;
+                &:nth-child(2) {
+                    width: 70%;
+                }
+                &:nth-child(3) {
+                    width: 40%;
+                }
+            }
+        }
 
         .btn-search {
             .input-search {
@@ -48,6 +73,9 @@ header {
                     color: #444e62;
                     opacity: 1;
                 }
+            }
+            .icon-search {
+                cursor: pointer;
             }
         }
     }
@@ -73,7 +101,6 @@ header {
             margin-top: 2rem;
             display: flex;
             overflow-x: hidden;
-            transition: margin-left .2s;
             .card {
                 width: 400px;
                 margin-right: 2rem;
@@ -111,7 +138,7 @@ header {
                         bottom: 1em;
                         right: 1em;
                         z-index: 2;
-                        transform: scale(.7);
+                        transform: scale(0.7);
                         img {
                             width: auto;
                             height: auto;
@@ -126,14 +153,14 @@ header {
                 }
 
                 .rating {
-                    margin-top: .5rem;
+                    margin-top: 0.5rem;
                 }
-        
+
                 span {
                     font-size: 0.8em;
                 }
-
             }
+
             &::-webkit-scrollbar {
                 width: 0px;
             }
@@ -141,13 +168,13 @@ header {
         .next {
             width: 60px;
             height: 60px;
-            background-image: url('../images/next.png');
+            background-image: url("../images/next.png");
             position: absolute;
             bottom: 0px;
             right: 1rem;
-            transform: scale(.9);
+            transform: scale(0.9);
             opacity: 0;
-            transition: .5s;
+            transition: 0.5s;
         }
     }
 
@@ -163,12 +190,119 @@ header {
             height: 50px;
             border-radius: 50%;
             border-top: 2px solid white;
-            border-right: 2px solid rgba(0, 0, 0, .3);
-            border-bottom: 2px solid rgba(0, 0, 0, .3);
-            border-left: 2px solid rgba(0, 0, 0, .3);
+            border-right: 2px solid rgba(0, 0, 0, 0.3);
+            border-bottom: 2px solid rgba(0, 0, 0, 0.3);
+            border-left: 2px solid rgba(0, 0, 0, 0.3);
         }
     }
     .spin {
         animation: spin 1s infinite;
+    }
+
+    @media (max-width: 960px) {
+        & {
+            height: 450px;
+            .icon-search {
+                display: block !important;
+            }
+            ul {
+                display: none !important;
+            }
+            .input-search {
+                display: none;
+            }
+            .hamburger {
+                display: flex !important;
+            }
+        }
+
+    }
+
+    @media (max-width: 768px) {
+        .content-popular {
+            overflow: scroll !important;
+        }
+    }
+
+    @media (max-width: 576px) {
+        & {
+            height: auto;
+            h2 {
+                display: none;
+            }
+            .content-popular {
+                flex-wrap: wrap;
+                border-radius: 1.8rem;
+                justify-content: center;
+                padding: 0;
+                height: 305px;
+                overflow-y: hidden !important;
+                .thumbnail {
+                    height: 100% !important;
+                    img {
+                        max-width: 100% !important;
+                        height: 100% !important;
+                    }
+
+                    button {
+                        display: none;
+                    }
+
+                    &::after {
+                        height: inherit !important;
+                    }
+                }
+
+                @for $i from 2 to 21 {
+                    .card {
+                        position: relative;
+                        margin-right: 0 !important;
+                        width: 100% !important;
+                        height: 100% !important;
+                        transition: opacity 0.5s !important;
+                        &:nth-child(#{$i}) {
+                            display: none;
+                        }
+                        .card-title {
+                            position: absolute;
+                            bottom: 3rem;
+                            justify-content: center;
+                            flex-direction: column;
+                            padding: 3rem;
+                            h3 {
+                                font-size: 1.5em;
+                            }
+                            span {
+                                display: none;
+                            }
+                        }
+                        .rating {
+                            position: absolute;
+                            bottom: 4rem;
+                            span {
+                                padding: 2.8rem !important;
+                                font-size: 1em !important;
+                            }
+                        }
+
+                        &.fade {
+                            -webkit-animation-name: fade;
+                            -webkit-animation-duration: 1.5s;
+                            animation-name: fade;
+                            animation-duration: 1.5s;
+                        }
+
+                        @keyframes fade {
+                            from {
+                                opacity: 0.4;
+                            }
+                            to {
+                                opacity: 1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

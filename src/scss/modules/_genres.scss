@@ -27,14 +27,16 @@ section#genre {
             }
 
             &::-webkit-scrollbar {
-                // width: 0px;
+                width: 0px;
             }
 
             @media screen and (max-width:768px) {
                 & {
                     width: 100%;
+                    overflow: scroll;
                 }
             }
+            
         }
     }
 
@@ -73,6 +75,12 @@ section#genre {
 
         &::-webkit-scrollbar {
             width: 0px;
+        }
+        
+        @media (max-width: 768px) {  
+            & {
+                overflow: scroll;
+            }
         }
     }
 }

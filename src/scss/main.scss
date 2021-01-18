@@ -47,6 +47,12 @@ body {
                 width: 300px;
             }
         }
+
+        @media(max-width:425px) {
+            & {
+                padding: 2rem 1.2rem;
+            }
+        }
     }
 
     .trailer-container {
@@ -91,4 +97,5 @@ body {
             z-index: 99;
         }
     }
+
 }

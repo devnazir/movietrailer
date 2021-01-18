@@ -9,6 +9,7 @@ class Movies extends ElementMovies {
         this.onMouseDown = false;
         this.startX = 0;
         this.scroll = 0;
+        this.slideIndex = 0;
 
         this.loading.classList.add("spin");
         this.getPopularMovies();
@@ -71,6 +72,11 @@ class Movies extends ElementMovies {
         });
 
         this.containerPopularMovies.innerHTML = popular;
+
+        if(window.innerWidth < 576) {
+            let images = this.containerPopularMovies.querySelectorAll(".card");
+            this.showSlides(images);
+        }
     }
 
     browseByGenre() {
@@ -138,7 +144,7 @@ class Movies extends ElementMovies {
     }
 
     templatePopular(movie) {
-        return `<div class="card">
+        return `<div class="card fade">
                 <div class="thumbnail">
                     <img loading="lazy" src="https://image.tmdb.org/t/p/w400${movie.backdrop_path}" alt="Thumbnail" >
                     <button data-btn='${movie.title}'>
@@ -166,6 +172,19 @@ class Movies extends ElementMovies {
                     <span>&#11088;${movie.vote_average}</span>
                 </div>
             </div>`;
+    }
+
+    showSlides(images) {
+        for (let i = 0; i < 4; i++) {
+            images[i].style.display = "none";
+        }
+        this.slideIndex++;
+        if (this.slideIndex >= 4) {this.slideIndex = 1} 
+        images[this.slideIndex-1].style.display = "block";  
+
+        setTimeout(() => {
+           this.showSlides(images);
+        }, 2000)   
     }
 }
 
