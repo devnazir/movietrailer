@@ -1,5 +1,5 @@
-section#genre {
-    font-family: "SFPro-Text", "Open-sans" ,sans-serif;
+section#genre, section#featured {
+    font-family: "SFPro-Text", "Open-sans", sans-serif;
     color: white;
     .genre-nav {
         width: 100%;
@@ -30,23 +30,23 @@ section#genre {
                 width: 0px;
             }
 
-            @media screen and (max-width:768px) {
+            @media screen and (max-width: 768px) {
                 & {
                     width: 100%;
                     overflow: scroll;
                 }
             }
-            
         }
     }
 
-    .movies {
+    .movies, .featured-movies {
         margin-top: 2rem;
         display: flex;
         overflow-x: hidden;
         .card {
             width: 150px;
             margin-right: 2rem;
+            cursor: pointer;
             .thumbnail {
                 width: inherit;
                 height: 200px;
@@ -55,20 +55,30 @@ section#genre {
                     height: 200px;
                 }
             }
-            
+
             .card-title {
                 margin-top: 1rem;
                 display: flex;
                 flex-direction: column;
 
+                div {
+                    display: flex;
+                    margin-top: 0.5rem;
+                    align-items: center;
+                    p {
+                        margin-left: 0.5rem;
+                        font-size: 0.7em;
+                    }
+                }
+
                 h4 {
-                    font-size: .9em;
+                    font-size: 0.9em;
                     width: max-content;
                 }
 
                 span {
-                    margin-top: .5rem;
-                    font-size: .7em;
+                    margin-top: 0.5rem;
+                    font-size: 0.7em;
                 }
             }
         }
@@ -76,11 +86,29 @@ section#genre {
         &::-webkit-scrollbar {
             width: 0px;
         }
-        
-        @media (max-width: 768px) {  
+
+        @media (max-width: 992px) {
             & {
                 overflow: scroll;
             }
         }
+
+        @media (max-width: 576px) {
+            .card {
+                .card-title {
+                    span {
+                        display: none;
+                    }
+                }
+            }
+        }
     }
 }
+
+section#featured {
+    display: none;
+    @media(max-width: 992px) {
+        display: block;
+    }
+}
+

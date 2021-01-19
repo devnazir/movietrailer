@@ -17,6 +17,9 @@
 </head>
 
 <body>
+    <div class="loading-body">
+        <div class="circle"></div>
+    </div>
     <div class="container">
         <header>
             <nav>
@@ -41,6 +44,11 @@
             <div class="popular-movies">
                 <h2>Popular Movies</h2>
                 <div class="content-popular"></div>
+                <div class="dots">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
                 <div class="next"></div>
             </div>
 
@@ -61,21 +69,26 @@
                     <li data-genre="35"><a href="#">Comedy</a></li>
                 </ul>
             </div>
-            <div class="movies"> </div>
+            <div class="movies"></div>
+        </section>
+
+        <section id="featured">
+            <h3>Featured Movies</h3>
+            <div class="featured-movies"></div>
         </section>
 
         <footer>
             <p>This website made by <span>Nazir Bahrul Ulum</span> And Design made by Irvan</p>
             <img src="<%= require('./src/images/attribution.svg') %>" alt="TMDb API">
-            <p>This product uses the <a href="https://www.themoviedb.org/">TMDb API</a</a>> but is not endorsed or certified by TMDb. ></p>
+            <p>This product uses the <a href="https://www.themoviedb.org/">TMDb API</a> but is not endorsed or
+                    certified by TMDb.</p>
             <p><a target="_blank" href="https://icons8.com/icons/set/movie-beginning--v1">Movie Beginning icon</a> icon
                 by <a target="_blank" href="https://icons8.com">Icons8</a></p>
         </footer>
 
     </div>
     <div class="trailer-container">
-        <div class="content">
-        </div>
+        <div class="content"></div>
     </div>
 </body>
 

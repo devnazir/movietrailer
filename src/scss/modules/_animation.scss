@@ -3,3 +3,12 @@
         transform: rotate(360deg);
     }
 }
+
+@keyframes fade {
+    to {
+        opacity: 1;
+    }
+    from {
+        opacity: 0.6;
+    }
+}

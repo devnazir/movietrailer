@@ -35,13 +35,14 @@ class Movies extends ElementMovies {
 
     clickingButtonPlay(event) {
         event.path.some(check => {
-            if (check.localName === "button") {
+            if (check.localName === "button" || check.className === "card") {
                 import(/* webpackChunkName: 'trailer' */ './trailer')
                     .then(response => {
-                        new response.Trailer().getTrailer(event);
-                    });
-            }
+                        new response.Trailer().getTrailer(check);
+                    })
+            }            
         });
+
     }
 
     async getPopularMovies() {
@@ -72,11 +73,44 @@ class Movies extends ElementMovies {
         });
 
         this.containerPopularMovies.innerHTML = popular;
+        this.checkWidthUserBrowser();
+    }
 
-        if(window.innerWidth < 576) {
-            let images = this.containerPopularMovies.querySelectorAll(".card");
-            this.showSlides(images);
+    checkWidthUserBrowser() {
+        if (window.innerWidth <= 576) {
+            const images = this.containerPopularMovies.querySelectorAll(".card");
+            const dots = document.getElementsByClassName("dot");
+            const sectionGenre = document.querySelector("section#genre");
+            const h3 = sectionGenre.querySelector("h3");
+
+            sectionGenre.style.marginTop = "1rem";
+            h3.textContent = "Recommended Movies";
+            this.ul.style.display = "none";
+
+            this.showSlides(images, dots);
+        } 
+        
+        if (window.innerWidth <= 992) {
+            this.getFeaturedMovies();
         }
+    }
+
+    async getFeaturedMovies() {
+        const data = await new Api({
+            path: "trending/all/week",
+            query: "",
+        }).movies();
+
+        this.updateUIFeaturedMovies(data);
+    }
+
+    updateUIFeaturedMovies(data) {
+        let featured = "";
+        data.forEach(movie => {
+            featured += this.templateGenres(movie)
+        });
+
+        this.containerFeaturedMovies.innerHTML = featured;
     }
 
     browseByGenre() {
@@ -156,35 +190,47 @@ class Movies extends ElementMovies {
                     <span>${movie.release_date}</span>
                 </div>
                 <div class="rating">
-                    <span>&#11088;${movie.vote_average}</span>
+                    <div>
+                        <img loading="lazy" src="${require('../images/star.png')}" alt="Star"'>
+                        <p>${movie.vote_average}</p>
+                    </div>
                 </div>
             </div>`;
     }
 
     templateGenres(movie) {
-        return `<div class="card">
-                <div class="thumbnail">
+        return `<div class="card" data-btn="${movie.media_type == "movie" ? movie.title : movie.name}">
+                <div class="thumbnail" >
                     <img loading="lazy" src="https://image.tmdb.org/t/p/w200${movie.poster_path}" alt="Thumbnail">
                 </div>
                 <div class="card-title">
-                    <h3>${movie.title}</h3>
+                    <h3>${movie.media_type == "movie" ? movie.title : movie.name}</h3>
                     <span>${movie.release_date}</span>
-                    <span>&#11088;${movie.vote_average}</span>
+                    <div>
+                        <img loading="lazy" src="${require('../images/star.png')}" alt="Star"'>
+                        <p>${movie.vote_average}</p>
+                    </div>
                 </div>
             </div>`;
     }
 
-    showSlides(images) {
+    showSlides(images, dots) {
         for (let i = 0; i < 4; i++) {
             images[i].style.display = "none";
         }
+
         this.slideIndex++;
-        if (this.slideIndex >= 4) {this.slideIndex = 1} 
-        images[this.slideIndex-1].style.display = "block";  
+        if (this.slideIndex >= 4) { this.slideIndex = 1 }
+        for (let i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+
+        images[this.slideIndex - 1].style.display = "block";
+        dots[this.slideIndex - 1].className += " active";
 
         setTimeout(() => {
-           this.showSlides(images);
-        }, 2000)   
+            this.showSlides(images, dots);
+        }, 3000)
     }
 }
 
@@ -239,5 +285,10 @@ class Genre extends Movies {
 
 }
 
-new Genre().checkGenreId(28);
+if (window.innerWidth <= 576) {
+    new Genre().checkGenreId("all");
+} else {
+    new Genre().checkGenreId(28);
+}
+
 new Movies();

@@ -27,7 +27,8 @@ export class publicApi {
         this.api = `https://youtube.googleapis.com/youtube/v3/`;
         this.apiKey = `AIzaSyDv8wAkRENMnAXnAqx4QsUs8ufDokXTXt0`;
 
-        this.url = `${this.api}${this.path}?part=snippet&channelId=${channelId}&maxResults=1&q=${this.query}&type=video&key=${this.apiKey}`
+        const id = channelId ?? '';
+        this.url = `${this.api}${this.path}?part=snippet&channelId=${id}&maxResults=1&q=${this.query}&type=video&key=${this.apiKey}`
         return await fetch(this.url).then(response => {
             if (!response.ok) {
                 throw new Error(response.statusText);
