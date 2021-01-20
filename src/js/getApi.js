@@ -25,7 +25,7 @@ export class publicApi {
 
     async trailer(channelId) {
         this.api = `https://youtube.googleapis.com/youtube/v3/`;
-        this.apiKey = `AIzaSyDv8wAkRENMnAXnAqx4QsUs8ufDokXTXt0`;
+        this.apiKey = `AIzaSyCqsoYk6gWBrvtLCubO2-Ec0HhtDty_YW8`;
 
         const id = channelId ?? '';
         this.url = `${this.api}${this.path}?part=snippet&channelId=${id}&maxResults=1&q=${this.query}&type=video&key=${this.apiKey}`
