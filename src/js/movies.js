@@ -34,13 +34,49 @@ class Movies extends ElementMovies {
     }
 
     clickingButtonPlay(event) {
+        
         event.path.some(check => {
-            if (check.localName === "button" || check.className === "card") {
+            if (check.className === "next-pop" || check.className === "card") {
                 import(/* webpackChunkName: 'trailer' */ './trailer')
                     .then(response => {
                         new response.Trailer().getTrailer(check);
                     })
-            }            
+            } else if(check.className == "icon-search") {
+                const inputsearch = check.previousElementSibling;
+                inputsearch.classList.add("show");
+                inputsearch.focus();
+                check.classList.add("hide");
+
+                inputsearch.addEventListener("focusout", () => {
+                    inputsearch.classList.remove("show");
+                    check.classList.remove("hide");
+                });
+            } 
+
+            else if(check.className == "next-page" &&  check.parentElement.className.includes("page-genre")) {
+                let page = check.dataset.page;
+                page++;
+                check.setAttribute("data-page", `${page}`);
+                new Genre().checkGenreId("all", page)
+            } else if(check.className == "prev-page" &&  check.parentElement.className.includes("page-genre")) {
+                let page = check.nextElementSibling.nextElementSibling.dataset.page;
+                page--;
+                check.nextElementSibling.nextElementSibling.setAttribute("data-page", `${page}`);
+                new Genre().checkGenreId("all", page)
+            } 
+
+            else if(check.className == "next-page" &&  check.parentElement.className.includes("page-featured")) {
+                let page = check.dataset.page;
+                page++;
+                check.setAttribute("data-page", `${page}`);
+                new Movies().getFeaturedMovies(page);
+            } else if (check.className == "prev-page" &&  check.parentElement.className.includes("page-featured")) {
+                let page = check.nextElementSibling.nextElementSibling.dataset.page;
+                page--;
+                check.nextElementSibling.nextElementSibling.setAttribute("data-page", `${page}`);
+                new Movies().getFeaturedMovies(page);
+            }
+        
         });
 
     }
@@ -91,14 +127,15 @@ class Movies extends ElementMovies {
         } 
         
         if (window.innerWidth <= 992) {
-            this.getFeaturedMovies();
+            this.getFeaturedMovies(1);
         }
     }
 
-    async getFeaturedMovies() {
+    async getFeaturedMovies(page) {
         const data = await new Api({
             path: "trending/all/week",
             query: "",
+            page: page,
         }).movies();
 
         this.updateUIFeaturedMovies(data);
@@ -181,7 +218,7 @@ class Movies extends ElementMovies {
         return `<div class="card fade">
                 <div class="thumbnail">
                     <img loading="lazy" src="https://image.tmdb.org/t/p/w400${movie.backdrop_path}" alt="Thumbnail" >
-                    <button data-btn='${movie.title}'>
+                    <button class="next-pop" data-btn='${movie.title}'>
                         <img loading="lazy" src="${require('../images/btn-play.png')}" alt="Trailer" data-btn='${movie.title}'>
                     </button>
                 </div>
@@ -253,11 +290,12 @@ class Genre extends Movies {
         });
     }
 
-    async checkGenreId(genreId) {
+    async checkGenreId(genreId, page) {
         try {
             const data = await new Api({
                 path: "trending/movie/day",
                 query: "",
+                page: page,
             }).movies();
             this.updateUIGenreMovies(data, genreId);
         }

@@ -49,6 +49,24 @@ body {
             margin-top: 5rem;
         }
 
+        section {
+            margin-bottom: 3rem;
+            .page {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                button {
+                    font-family: "Poppins";
+                    border-radius: 5px;
+                    padding: .5rem 1rem;
+                    background-color: #2C69DF;
+                    border: none;
+                    color: white;
+                    outline: none;
+                }
+            }
+        }
+
         footer {
             font-family: "Poppins", sans-serif;
             width: 100%;
@@ -76,17 +94,17 @@ body {
             }
         }
 
-        @media(max-width:425px) {
+        @media (max-width: 425px) {
             & {
                 padding: 2rem 1.2rem;
             }
         }
-        @media(max-width:576px) {
+        @media (max-width: 576px) {
             section {
                 margin-top: 1rem;
             }
         }
-        @media(max-width: 768px) {
+        @media (max-width: 768px) {
             footer {
                 height: 180px;
             }
@@ -94,7 +112,7 @@ body {
     }
 
     .trailer-container {
-        background-color: rgba($color: #1A202C, $alpha: 1);
+        background-color: rgba($color: #1a202c, $alpha: 1);
         font-family: "SFPro-text";
         display: flex;
         justify-content: center;
@@ -134,7 +152,7 @@ body {
                     margin-top: 1.4rem;
                     line-height: 1.4em;
                 }
-                
+
                 .btn-back {
                     margin-top: 1rem;
                     padding: 1rem;
@@ -147,7 +165,7 @@ body {
                     }
                 }
             }
-            
+
             &::-webkit-scrollbar {
                 width: 0px;
             }
@@ -158,7 +176,7 @@ body {
             z-index: 99;
         }
 
-        @media screen and (max-width:768px) {
+        @media screen and (max-width: 768px) {
             & {
                 .content {
                     .trailer {
@@ -178,5 +196,4 @@ body {
             }
         }
     }
-
 }

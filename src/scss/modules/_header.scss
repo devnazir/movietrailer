@@ -68,7 +68,6 @@ header {
                 outline: white;
                 background: #202736;
                 border-radius: 50px;
-                transition: .5s;
 
                 &::placeholder {
                     color: #444e62;
@@ -243,17 +242,44 @@ header {
     @media (max-width: 960px) {
         & {
             height: 450px;
-            .icon-search {
-                display: block !important;
-            }
-            ul {
-                display: none !important;
-            }
-            .input-search {
-                display: none;
-            }
-            .hamburger {
-                display: flex !important;
+            nav {
+                flex-wrap: nowrap;
+                .btn-search {
+                    position: relative;
+                    .icon-search {
+                        display: block !important;
+                        top: 0;
+                        right: 0;
+                        height: 100%;
+                        transform: scale(0.6);
+                        position: absolute;
+                        transition: .2s;
+
+                        &.hide {
+                            transform: scale(0);
+                            transition: .2s;
+                        }
+                    }
+                    .input-search {
+                        width: 0;
+                        opacity: 0;
+                        transition: .2s;
+                        &.show {
+                            width: 200px;
+                            opacity: 1;
+                            transition: .2s;
+                        }
+                    }
+                }
+                ul {
+                    display: none !important;
+                }
+                .hamburger {
+                    display: flex !important;
+                    span {
+                        height: 2.2px;
+                    }
+                }
             }
         }
     }
@@ -288,11 +314,11 @@ header {
                                 max-width: 100%;
                                 height: 100%;
                             }
-    
+
                             button {
                                 display: none;
                             }
-    
+
                             &::after {
                                 height: inherit;
                             }
