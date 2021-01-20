@@ -53,29 +53,29 @@ class Movies extends ElementMovies {
                 });
             } 
 
-            else if(check.className == "next-page" &&  check.parentElement.className.includes("page-genre")) {
-                let page = check.dataset.page;
-                page++;
-                check.setAttribute("data-page", `${page}`);
-                new Genre().checkGenreId("all", page)
-            } else if(check.className == "prev-page" &&  check.parentElement.className.includes("page-genre")) {
-                let page = check.nextElementSibling.nextElementSibling.dataset.page;
-                page--;
-                check.nextElementSibling.nextElementSibling.setAttribute("data-page", `${page}`);
-                new Genre().checkGenreId("all", page)
-            } 
+            // else if(check.className == "next-page" &&  check.parentElement.className.includes("page-genre")) {
+            //     let page = check.dataset.page;
+            //     page++;
+            //     check.setAttribute("data-page", `${page}`);
+            //     new Genre().checkGenreId("all", page)
+            // } else if(check.className == "prev-page" &&  check.parentElement.className.includes("page-genre")) {
+            //     let page = check.nextElementSibling.nextElementSibling.dataset.page;
+            //     page--;
+            //     check.nextElementSibling.nextElementSibling.setAttribute("data-page", `${page}`);
+            //     new Genre().checkGenreId("all", page)
+            // } 
 
-            else if(check.className == "next-page" &&  check.parentElement.className.includes("page-featured")) {
-                let page = check.dataset.page;
-                page++;
-                check.setAttribute("data-page", `${page}`);
-                new Movies().getFeaturedMovies(page);
-            } else if (check.className == "prev-page" &&  check.parentElement.className.includes("page-featured")) {
-                let page = check.nextElementSibling.nextElementSibling.dataset.page;
-                page--;
-                check.nextElementSibling.nextElementSibling.setAttribute("data-page", `${page}`);
-                new Movies().getFeaturedMovies(page);
-            }
+            // else if(check.className == "next-page" &&  check.parentElement.className.includes("page-featured")) {
+            //     let page = check.dataset.page;
+            //     page++;
+            //     check.setAttribute("data-page", `${page}`);
+            //     new Movies().getFeaturedMovies(page);
+            // } else if (check.className == "prev-page" &&  check.parentElement.className.includes("page-featured")) {
+            //     let page = check.nextElementSibling.nextElementSibling.dataset.page;
+            //     page--;
+            //     check.nextElementSibling.nextElementSibling.setAttribute("data-page", `${page}`);
+            //     new Movies().getFeaturedMovies(page);
+            // }
         
         });
 
