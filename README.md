@@ -2,6 +2,16 @@
 Movietrailer merupakan Website yang berisi trailer movie, menggunakan Public API dari https://www.themoviedb.org/ dan Youtube API https://developers.google.com/youtube/v3/docs.
 
 #### Demo: https://devnazir.github.io/movietrailer/
+#### Note: Jika saat klik movie yang dipilih hanya menampilkan loading atau videonya tidak muncul, kemungkinan sudah limit. Jadi, silahkan ubah api key yt nya menggunakan milik sendiri. Silahkan cek di folder src, cari file getApi. 
+
+```
+async trailer(channelId) {
+        this.api = `https://youtube.googleapis.com/youtube/v3/`;
+        this.apiKey = `Your Apikey`;
+
+        ...
+}
+```
 
 ## Cara install
 <ul>
