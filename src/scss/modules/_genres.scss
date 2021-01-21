@@ -1,4 +1,5 @@
-section#genre, section#featured {
+section#genre,
+section#featured {
     font-family: "SFPro-Text", "Open-sans", sans-serif;
     color: white;
     .genre-nav {
@@ -39,14 +40,14 @@ section#genre, section#featured {
         }
     }
 
-    .movies, .featured-movies {
+    .movies,
+    .featured-movies {
         margin-top: 2rem;
         display: flex;
         overflow-x: hidden;
         .card {
             width: 150px;
             margin-right: 2rem;
-            cursor: pointer;
             .thumbnail {
                 width: inherit;
                 height: 200px;
@@ -60,6 +61,7 @@ section#genre, section#featured {
                 margin-top: 1rem;
                 display: flex;
                 flex-direction: column;
+                cursor: pointer;
 
                 div {
                     display: flex;
@@ -93,7 +95,7 @@ section#genre, section#featured {
             }
         }
 
-        @media (max-width: 576px) {
+        @media (max-width: 992px) {
             .card {
                 .card-title {
                     span {
@@ -107,8 +109,7 @@ section#genre, section#featured {
 
 section#featured {
     display: none;
-    @media(max-width: 992px) {
+    @media (max-width: 992px) {
         display: block;
     }
 }
-

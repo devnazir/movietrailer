@@ -1,6 +1,6 @@
 class ElementMovies {
     constructor() {
-        this.loading = document.querySelector(".loading .circle");
+        this.loading = document.querySelectorAll(".loading .circle");
         this.containerPopularMovies = document.querySelector(".content-popular");
         this.containerGenresMovies = document.querySelector("section#genre .movies");
         this.containerFeaturedMovies = document.querySelector("section#featured .featured-movies");

@@ -56,7 +56,7 @@
                 <div class="circle"></div>
             </div>
         </header>
-
+        
         <section id="genre">
             <h3>Browse by Genre</h3>
             <div class="genre-nav">
@@ -70,10 +70,13 @@
                 </ul>
             </div>
             <div class="movies"></div>
-            <div class="page page-genre">
+            <div class="page page-genres">
                 <button class="prev-page">Prev</button>
-                <span class="page">Page 1</span>
-                <button class="next-page" data-page="1">Next</button>
+                <span class="page-currently">Page 1</span>
+                <button class="next-page">Next</button>
+            </div>
+            <div class="loading">
+                <div class="circle"></div>
             </div>
         </section>
 
@@ -82,16 +85,26 @@
             <div class="featured-movies"></div>
             <div class="page page-featured">
                 <button class="prev-page">Prev</button>
-                <span class="page">Page 1</span>
-                <button class="next-page" data-page="1">Next</button>
+                <span class="page-currently">Page 1</span>
+                <button class="next-page">Next</button>
+            </div>
+            <div class="loading">
+                <div class="circle"></div>
             </div>
         </section>
+        
+        <div class="result-search">
+            <h2>Result</h2>
+            <div class="cards">
+            </div>
+            <button><a href="#">Back to Homepage</a></button>
+        </div>
 
         <footer>
             <p>This website made by <span>Nazir Bahrul Ulum</span> And Design made by Irvan</p>
             <img src="<%= require('./src/images/attribution.svg') %>" alt="TMDb API">
             <p>This product uses the <a href="https://www.themoviedb.org/">TMDb API</a> but is not endorsed or
-                    certified by TMDb.</p>
+                certified by TMDb.</p>
             <p><a target="_blank" href="https://icons8.com/icons/set/movie-beginning--v1">Movie Beginning icon</a> icon
                 by <a target="_blank" href="https://icons8.com">Icons8</a></p>
         </footer>

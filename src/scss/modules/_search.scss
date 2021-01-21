@@ -1,0 +1,62 @@
+.result-search {
+    display: none;
+    font-family: "SFPro-Text", "Open-sans", sans-serif;
+    color: white;
+    margin-top: 1rem;
+    h2 {
+        font-size: 1.5em;
+    }
+    .cards {
+        margin-top: 1rem;
+        display: grid;
+        justify-items: center;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+
+        .card {
+            width: 150px;
+            .thumbnail {
+                img {
+                    width: 150px;
+                }
+            }
+
+            .card-title {
+                margin-top: 1rem;
+                display: flex;
+                flex-direction: column;
+                cursor: pointer;
+
+                div {
+                    display: flex;
+                    
+                    margin-top: 0.5rem;
+                    align-items: center;
+                    p {
+                        margin-left: 0.5rem;
+                        font-size: 0.7em;
+                    }
+                }
+
+                span {
+                    margin-top: 0.5rem;
+                    font-size: 0.7em;
+                }
+            }
+        }
+    }
+    button {
+        margin-top: 1rem;
+        padding: 1rem;
+        border-radius: 5px;
+        width: max-content;
+        outline: none;
+        border: none;
+        cursor: pointer;
+        background-color: rgb(235, 55, 42);
+        a {
+            text-decoration: none;
+            color: white;
+        }
+    }
+}

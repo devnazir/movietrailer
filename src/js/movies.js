@@ -10,8 +10,12 @@ class Movies extends ElementMovies {
         this.startX = 0;
         this.scroll = 0;
         this.slideIndex = 0;
+        this.page = 1;
 
-        this.loading.classList.add("spin");
+        this.loading.forEach(loading => {
+            loading.classList.add("spin")
+        });
+
         this.getPopularMovies();
         this.event();
     }
@@ -23,25 +27,64 @@ class Movies extends ElementMovies {
                 const data = await new Api({
                     path: "search/movie",
                     query: value,
-                }).movies()
-                console.log(data)
+                }).movies();
+
+                new Movies().updateUISection(data)
             }
 
             catch (err) {
                 console.log(err)
             }
+
         }
     }
 
+    updateUISection(data) {
+        const section = document.querySelectorAll("section");
+        const resultSearch = document.querySelector(".result-search");
+        const btnBack = resultSearch.querySelector("button");
+        const popularMov = document.querySelector(".popular-movies");
+        const header = document.querySelector("header");
+
+        btnBack.addEventListener("click", () => {
+            section.forEach(sec => {
+                sec.style.display = "block";
+            });
+            header.style.cssText = "height: 450px;"
+            popularMov.style.display = "block";
+            resultSearch.style.display = "none";
+            return;
+        });
+
+        header.style.cssText = "height: 50px;"
+        popularMov.style.display = "none";
+        resultSearch.style.display = "block";
+        section.forEach(sec => {
+            sec.style.display = "none";
+        });
+
+        this.showResultMovies(data, resultSearch);
+    }
+
+    showResultMovies(data, resultSearch) {
+        let resultMov = "";
+        const cards = resultSearch.querySelector(".cards")
+        data.forEach(movie => {
+            console.log(movie)
+            resultMov += this.templateGenres(movie);
+        });
+
+        cards.innerHTML = resultMov;
+    }
+
     clickingButtonPlay(event) {
-        
         event.path.some(check => {
-            if (check.className === "next-pop" || check.className === "card") {
+            if (check.className === "next-pop" || check.className === "card-title") {
                 import(/* webpackChunkName: 'trailer' */ './trailer')
                     .then(response => {
                         new response.Trailer().getTrailer(check);
                     })
-            } else if(check.className == "icon-search") {
+            } else if (check.className == "icon-search") {
                 const inputsearch = check.previousElementSibling;
                 inputsearch.classList.add("show");
                 inputsearch.focus();
@@ -51,32 +94,7 @@ class Movies extends ElementMovies {
                     inputsearch.classList.remove("show");
                     check.classList.remove("hide");
                 });
-            } 
-
-            // else if(check.className == "next-page" &&  check.parentElement.className.includes("page-genre")) {
-            //     let page = check.dataset.page;
-            //     page++;
-            //     check.setAttribute("data-page", `${page}`);
-            //     new Genre().checkGenreId("all", page)
-            // } else if(check.className == "prev-page" &&  check.parentElement.className.includes("page-genre")) {
-            //     let page = check.nextElementSibling.nextElementSibling.dataset.page;
-            //     page--;
-            //     check.nextElementSibling.nextElementSibling.setAttribute("data-page", `${page}`);
-            //     new Genre().checkGenreId("all", page)
-            // } 
-
-            // else if(check.className == "next-page" &&  check.parentElement.className.includes("page-featured")) {
-            //     let page = check.dataset.page;
-            //     page++;
-            //     check.setAttribute("data-page", `${page}`);
-            //     new Movies().getFeaturedMovies(page);
-            // } else if (check.className == "prev-page" &&  check.parentElement.className.includes("page-featured")) {
-            //     let page = check.nextElementSibling.nextElementSibling.dataset.page;
-            //     page--;
-            //     check.nextElementSibling.nextElementSibling.setAttribute("data-page", `${page}`);
-            //     new Movies().getFeaturedMovies(page);
-            // }
-        
+            }
         });
 
     }
@@ -98,8 +116,10 @@ class Movies extends ElementMovies {
     }
 
     removeClassSpin() {
-        this.loading.classList.remove("spin");
-        this.loading.parentElement.style.display = 'none';
+        this.loading.forEach(loading => {
+            loading.classList.remove("spin");
+            loading.parentElement.style.display = 'none';
+        });
     }
 
     updateUIPopularMovies(data) {
@@ -124,10 +144,30 @@ class Movies extends ElementMovies {
             this.ul.style.display = "none";
 
             this.showSlides(images, dots);
-        } 
-        
+        }
+
         if (window.innerWidth <= 992) {
-            this.getFeaturedMovies(1);
+            const nextPage = document.querySelector(".page-featured .next-page");
+            const span = document.querySelector(".page-featured .page-currently");
+            const prevPage = document.querySelector(".page-featured .prev-page");
+
+            nextPage.addEventListener("click", () => {
+                this.page++;
+                this.getFeaturedMovies(this.page);
+                span.textContent = `Page ${this.page}`;
+                return;
+            });
+
+            prevPage.addEventListener("click", () => {
+                this.page--;
+                if (this.page <= 0) this.page = 1;
+                span.textContent = `Page ${this.page}`;
+                this.getFeaturedMovies(this.page);
+                return;
+            });
+
+
+            this.getFeaturedMovies();
         }
     }
 
@@ -241,7 +281,7 @@ class Movies extends ElementMovies {
                     <img loading="lazy" src="https://image.tmdb.org/t/p/w200${movie.poster_path}" alt="Thumbnail">
                 </div>
                 <div class="card-title">
-                    <h3>${movie.media_type == "movie" ? movie.title : movie.name}</h3>
+                    <h3>${movie.media_type == "movie" ? movie.title : movie.name ?? movie.original_title}</h3>
                     <span>${movie.release_date}</span>
                     <div>
                         <img loading="lazy" src="${require('../images/star.png')}" alt="Star"'>
@@ -275,6 +315,29 @@ class Genre extends Movies {
     constructor() {
         super();
         this.event();
+        this.pageGenre = 1;
+        this.clickingPagination();
+    }
+
+    clickingPagination() {
+        const nextPage = document.querySelector(".page-genres .next-page");
+        const span = document.querySelector(".page-genres .page-currently");
+        const prevPage = document.querySelector(".page-genres .prev-page");
+
+        nextPage.addEventListener("click", () => {
+            this.pageGenre++;
+            this.checkGenreId("all", this.pageGenre);
+            span.textContent = `Page ${this.pageGenre}`;
+            return;
+        });
+
+        prevPage.addEventListener("click", () => {
+            this.pageGenre--;
+            if (this.pageGenre <= 0) this.pageGenre = 1;
+            span.textContent = `Page ${this.pageGenre}`;
+            this.checkGenreId("all", this.pageGenre);
+            return;
+        });
     }
 
     event() {
