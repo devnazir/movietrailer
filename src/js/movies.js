@@ -276,11 +276,11 @@ class Movies extends ElementMovies {
     }
 
     templateGenres(movie) {
-        return `<div class="card" data-btn="${movie.media_type == "movie" ? movie.title : movie.name}">
+        return `<div class="card">
                 <div class="thumbnail" >
                     <img loading="lazy" src="https://image.tmdb.org/t/p/w200${movie.poster_path}" alt="Thumbnail">
                 </div>
-                <div class="card-title">
+                <div class="card-title" data-btn="${movie.media_type == "movie" ? movie.title : movie.name}">
                     <h3>${movie.media_type == "movie" ? movie.title : movie.name ?? movie.original_title}</h3>
                     <span>${movie.release_date}</span>
                     <div>
