@@ -12,7 +12,7 @@ export class publicApi {
 
     async movies() {
         this.api = `https://api.themoviedb.org/3/`;
-        this.apiKey = `6fa39716df5c82d1be46c3d685c8c56c`;
+        this.apiKey = process.env.APIKEY_TMDB;
 
         const query = this.query ?? '';
         const page = this.page ?? '';
@@ -35,10 +35,9 @@ export class publicApi {
             return response.json();
         }).then(response => response.results);
     }
-
     async trailer(channelId) {
         this.api = `https://youtube.googleapis.com/youtube/v3/`;
-        this.apiKey = `AIzaSyCqsoYk6gWBrvtLCubO2-Ec0HhtDty_YW8`;
+        this.apiKey = process.env.APIKEY_YT;
 
         const id = channelId ?? '';
         this.url = `${this.api}${this.path}?part=snippet&channelId=${id}&maxResults=1&q=${this.query}&type=video&key=${this.apiKey}`

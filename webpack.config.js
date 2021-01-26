@@ -2,6 +2,8 @@ const htmlPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const cssExternal = require("mini-css-extract-plugin");
 const path = require("path");
+const webpack = require('webpack')
+const dotenv = require("dotenv");
 
 module.exports = {
     entry: {
@@ -25,6 +27,12 @@ module.exports = {
             dangerouslyAllowCleanPatternsOutsideProject: true,
             cleanOnceBeforeBuildPatterns: [path.join(__dirname, 'dist/**/*')]
         }),
+        new webpack.ProvidePlugin({
+            process: 'process/browser',
+        }),
+        new webpack.DefinePlugin({
+            'process.env': JSON.stringify(dotenv.config({ path: 'apikey.env' }).parsed)
+         })
     ],
     module: {
         rules: [
