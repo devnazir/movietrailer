@@ -16,7 +16,6 @@ async trailer(channelId) {
 
 ## Cara install
 <ul>
-  <li>fork repo</li>
   <li>buka terminal cmd atau gitbash</li>
   <li>git clone https://github.com/devnazir/movietrailer</li>
   <li>cd movietrailer</li>
