@@ -25,7 +25,7 @@ class Movies extends ElementMovies {
             try {
                 const value = this.value;
                 const data = await new Api({
-                    path: "search/movie",
+                    path: "search/multi",
                     query: value,
                 }).movies();
 
@@ -50,7 +50,7 @@ class Movies extends ElementMovies {
             section.forEach(sec => {
                 sec.style.display = "block";
             });
-            header.style.cssText = "height: 450px;"
+            header.style.cssText = "height: auto;"
             popularMov.style.display = "block";
             resultSearch.style.display = "none";
             return;
@@ -93,6 +93,7 @@ class Movies extends ElementMovies {
                 inputsearch.addEventListener("focusout", () => {
                     inputsearch.classList.remove("show");
                     check.classList.remove("hide");
+                    inputsearch.value = "";
                 });
             }
         });
@@ -215,6 +216,19 @@ class Movies extends ElementMovies {
 
         this.search.addEventListener("keydown", this.searchMovies);
         document.addEventListener("click", this.clickingButtonPlay);
+
+        this.hamburger.addEventListener("click", this.openMenu);
+    }
+
+    openMenu() {
+        const ul = this.nextElementSibling.nextElementSibling;
+        if(ul.classList.contains("open-menu")) {
+            this.classList.remove("fixed");
+            ul.classList.remove("open-menu");
+            return;
+        }
+        ul.classList.add("open-menu");
+        this.classList.add("fixed");
     }
 
     mouseDown(e) {
@@ -262,7 +276,7 @@ class Movies extends ElementMovies {
                         <img loading="lazy" src="${require('../images/btn-play.png')}" alt="Trailer" data-btn='${movie.title}'>
                     </button>
                 </div>
-                <div class="card-title">
+                <div class="card-title" data-btn="${movie.media_type == "movie" ? movie.title : movie.name}">
                     <h3>${movie.title}</h3>
                     <span>${movie.release_date}</span>
                 </div>

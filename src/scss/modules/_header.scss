@@ -273,11 +273,27 @@ header {
                 }
                 ul {
                     display: none !important;
+                    &.open-menu {
+                        display: flex !important;
+                        flex-direction: column;
+                        height: 100vh;
+                        width: 100%;
+                        position: fixed;
+                        top: 0;
+                        z-index: 10;
+                        justify-content: space-evenly;
+                        background-color: #1a202c;
+                    }
                 }
                 .hamburger {
                     display: flex !important;
+                    z-index: 20 !important;
                     span {
                         height: 2.2px;
+                    }
+
+                    &.fixed {
+                        position: fixed;
                     }
                 }
             }

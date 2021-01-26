@@ -10,6 +10,7 @@ class ElementMovies {
         this.ul = document.querySelector(".genre-nav ul");
         this.next = document.querySelector(".next");
         this.iconSearch = document.querySelector(".icon-search");
+        this.hamburger = document.querySelector("nav .hamburger");
     }
 }
 
