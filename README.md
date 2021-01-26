@@ -1,8 +1,6 @@
 # Movietrailer
 Movietrailer &#9989; merupakan Website yang berisi trailer movie, menggunakan Public API dari https://www.themoviedb.org/ dan Youtube API https://developers.google.com/youtube/v3/docs.
 
-#### Demo: https://devnazir.github.io/movietrailer/
-
 ## Cara install
 <ul>
   <li>buka terminal cmd atau gitbash</li>
