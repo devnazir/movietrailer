@@ -1,4 +1,4 @@
-import '../scss/main.scss';
+import '../scss/styles.scss';
 import { publicApi as Api } from './getApi';
 import { ElementMovies } from './element';
 
